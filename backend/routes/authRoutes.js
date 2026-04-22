@@ -60,8 +60,8 @@ router.post("/login", async (req, res) => {
     //SAVE TOKEN IN COOKIE
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, //at production level it must be true
-      sameSite: "lax",
+      secure: true, //at production level it must be true
+      sameSite: "none",
     });
 
     // SUCCESS LOGIN
@@ -79,8 +79,8 @@ router.get("/me", verifyToken, getMe);
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false, // true in production (HTTPS)
-    sameSite: "strict",
+    secure: true, // true in production (HTTPS)
+    sameSite: "none",
   });
 
   return res.status(200).json({

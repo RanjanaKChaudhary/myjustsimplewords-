@@ -3,10 +3,9 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const quoteRoutes = require("./routes/quoteRoutes");
-const authRoutes = require ("./routes/authRoutes");
-const chatRoutes = require ("./routes/chatRoutes");
+const authRoutes = require("./routes/authRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 const cookieParser = require("cookie-parser");
-
 
 dotenv.config();
 
@@ -16,16 +15,14 @@ connectDB();
 const app = express();
 
 // middleware
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(cors({
-  origin: "http://localhost:5173", // for frontend
-  credentials: true
+  origin: "https://myjustsimplewords.vercel.app",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
-
-app.use(cookieParser());
-
-
 
 // routes
 app.use("/api", quoteRoutes);

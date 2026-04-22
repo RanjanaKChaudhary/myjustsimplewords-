@@ -37,11 +37,19 @@
   border-radius: 5px;
 }
 
-/* 📱 Mobile View */
+/* Mobile View */
 @media (max-width: 768px) {
+
+  .your-text-class {
+    font-style: normal;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  }
+
   .dashboard-layout {
     flex-direction: column;
   }
+
+}
 
   .menu-btn {
     display: block;
