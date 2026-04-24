@@ -62,7 +62,7 @@ function Chatbot() {
         <div className="fixed bottom-24 right-5 w-80 h-[420px] bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50 border border-white/20">
           {/* Header */}
           <div className="flex justify-between items-center px-4 py-2 bg-black/60 text-white">
-            <span>MyJustSimpleWords</span>
+            <span>MyJustSimpleWords • How can I help you?</span>
             <button onClick={() => setOpen(false)}>✖</button>
           </div>
 
@@ -97,7 +97,7 @@ function Chatbot() {
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Type..."
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              className="flex-1 px-3 py-2 bg-transparent outline-none text-white placeholder-gray-300"
+              className="flex-1 px-3 py-2 bg-transparent outline-none text-gray-800 placeholder-gray-300"
             />
 
             <button
