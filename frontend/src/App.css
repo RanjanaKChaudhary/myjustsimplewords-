@@ -49,8 +49,6 @@
     flex-direction: column;
   }
 
-}
-
   .menu-btn {
     display: block;
   }
@@ -73,8 +71,9 @@
   }
 }
 
+
 /* chatbot css */
-/* 🌌 Background blur glass effect */
+/* Background blur glass effect */
 .chatbot-container {
   position: fixed;
   bottom: 90px;
