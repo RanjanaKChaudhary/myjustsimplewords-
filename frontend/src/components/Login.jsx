@@ -5,11 +5,11 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 function Login() {
-
   const API = import.meta.env.VITE_API_URL;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -17,7 +17,12 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      return toast.error("Please fill all fields");
+    }
+
     try {
+      setLoading(true);
       const response = await axios.post(
         `${API}/api/auth/login`,
         {
@@ -29,7 +34,7 @@ function Login() {
         },
       );
 
-      // setUser(response.data.user);
+      setUser(response.data.user);
       toast.success("Login successful");
 
       navigate("/"); // let AuthContext fetch user via /me
@@ -37,6 +42,8 @@ function Login() {
       console.log("Login error:", error);
 
       toast.error(error.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,20 +83,14 @@ function Login() {
           />
         </div>
 
-        {/* Forgot password */}
-        {/* <div className="text-right mb-4">
-          <span className="text-sm text-blue-600 hover:underline cursor-pointer">
-            Forgot Password?
-          </span>
-        </div> */}
-
         {/* Button */}
         <button
           type="submit"
+          disabled={loading}
           className="w-full h-11 bg-gray-800 text-gray-300 font-semibold rounded-lg 
                      hover:bg-gray-700 transition duration-200"
         >
-          Login
+        {loading ? "Logging in..." : "Login"}
         </button>
 
         {/* Register link */}

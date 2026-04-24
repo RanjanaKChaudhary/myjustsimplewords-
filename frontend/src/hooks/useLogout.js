@@ -7,7 +7,6 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 const useLogout = () => {
-  
   const API = import.meta.env.VITE_API_URL;
 
   const navigate = useNavigate();
@@ -15,19 +14,16 @@ const useLogout = () => {
 
   const logout = async () => {
     try {
-      await axios.post(
-        `${API}/api/auth/logout`,
-        {},
-        { withCredentials: true }
-      );
-
-      setUser(null);
-      toast.success("Logged out",
-        {toastClassName:"bg-yellow-400 text-gray-900"});
-      navigate("/");
+      await axios.post(`${API}/api/auth/logout`, {}, { withCredentials: true });
     } catch (error) {
-      console.log(error);
-      toast.error("Logout failed");
+      console.log("Logout API failed:", error);
+    } finally {
+      //logout on frontend
+      setUser(null);
+      toast.success("Logged out", {
+        toastClassName: "bg-yellow-400 text-gray-900",
+      });
+      navigate("/");
     }
   };
 

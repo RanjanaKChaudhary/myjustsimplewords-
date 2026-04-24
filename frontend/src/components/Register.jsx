@@ -7,6 +7,7 @@ function Register() {
   const [username, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   
@@ -14,18 +15,26 @@ function Register() {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+    
+     if (!username || !email || !password) {
+    return toast.error("Please fill all fields");
+  }
 
+  if (password.length < 6) {
+    return toast.error("Password must be at least 6 characters");
+  }
     try {
-      const response = await axios.post(
+      setLoading(true);
+      await axios.post(
          `${API}/api/auth/register`,
         {
-          username,
-          email,
-          password,
+          username: username.trim(),
+  email: email.trim(),
+  password: password.trim(),
         }
       );
 
-      console.log(response.data);
+    
       toast.success("Registration successful",
         {toastClassName:"bg-yellow-400 text-gray-900"});
 
@@ -33,9 +42,18 @@ function Register() {
       navigate("/login");
 
     } catch (error) {
-      console.error(error.response?.data || error.message);
-      alert(error.response?.data?.message || "Error occurred");
-    }
+    console.error(error.response?.data || error.message);
+
+    const message =
+      error.response?.data?.message ||
+      error.message ||
+      "Registration failed";
+
+    toast.error(message);
+
+  } finally {
+    setLoading(false);
+  }
   };
 
   return (
@@ -99,9 +117,10 @@ function Register() {
 
         <button
           type="submit"
+           disabled={loading}
           className="w-full h-11 bg-gray-800 text-gray-300 font-semibold rounded-lg"
         >
-          Register
+          {loading ? "Creating account..." : "Register"}
         </button>
 
         <p className="text-sm text-center mt-5">

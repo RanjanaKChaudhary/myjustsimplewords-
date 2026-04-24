@@ -12,14 +12,18 @@ function RightSection() {
   const logout = useLogout();
 
   return (
+
     <div className="flex-1 bg-slate-100 min-h-screen p-5">
+
       {/* Header */}
       <div className="sticky top-0 flex items-center justify-between bg-white px-6 py-3 shadow-md rounded-lg">
+        
         {/* SearchBar */}
         <div className="w-1/3">
           <SearchBar />
         </div>
         <div className="flex items-center gap-3">
+          
           {/* Auth Buttons */}
           {isLoggedIn && (
             <p className="text-sm text-gray-600">
@@ -29,6 +33,7 @@ function RightSection() {
               </span>
             </p>
           )}
+          
           {isLoggedIn ? (
             <button
               onClick={logout}

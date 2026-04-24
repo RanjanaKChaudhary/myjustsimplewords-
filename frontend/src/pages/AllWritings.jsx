@@ -12,7 +12,7 @@ function AllWritings() {
       try {
         const res = await axios.get(`${API}/api/quotes`);
 
-        setAllQuotes(res.data.data); // ✅ IMPORTANT (you commented this earlier)
+        setAllQuotes(res.data.data); 
       } catch (err) {
         console.log(err);
       }

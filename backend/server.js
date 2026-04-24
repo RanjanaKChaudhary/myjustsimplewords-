@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require("helmet");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -15,14 +16,20 @@ connectDB();
 const app = express();
 
 // middleware
+app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://myjustsimplewords.vercel.app"
+];
+
 app.use(cors({
-  origin: "https://myjustsimplewords.vercel.app",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+  origin: allowedOrigins,
+  credentials: true
 }));
+
 
 // routes
 app.use("/api", quoteRoutes);
